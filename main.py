@@ -129,9 +129,12 @@ while True:
             (status,)
         )
         done = cursor.fetchall()
-        if 
-        for each_status in done:
-            print(f"{each_status}")
+        if not done:
+            print("No task available for this status")
+            continue
+        else:
+            for each_status in done:
+                print(f"{each_status}")
         
     elif user_input == "7":
         status = "Todo"
@@ -140,8 +143,12 @@ while True:
             (status,)
         )
         todo = cursor.fetchall()
-        for each_status in todo:
-            print(f"{each_status}")
+        if not todo:
+            print("No task available for this status")
+            continue
+        else:
+            for each_status in todo:
+                print(f"{each_status}")
     
     elif user_input == "8":
         status = "In-progress"
@@ -150,8 +157,13 @@ while True:
             (status,)
         )
         in_progress = cursor.fetchall()
-        for each_status in in_progress:
-            print(f"{each_status}")
+        if not in_progress:
+            print("No task available for this status")
+            continue
+        else:
+            for each_status in in_progress:
+                print(f"{each_status}")
+                
     elif user_input == "9":
         print("Goodbye")
         break
