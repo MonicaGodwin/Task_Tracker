@@ -26,9 +26,9 @@ while True:
         f"7. List not done\n"
         f"8. List in-progress\n"
         f"9. Exit\n"
-        f"\n choose an option(1, 2, 3, 4, 5, 6, 7)\n"
+        f"\n choose an option(1 - 9)\n"
     )
-
+    
     if user_input == "1":
         description = input("Enter task description:\n").strip()
         if description == "":
@@ -49,6 +49,9 @@ while True:
 
     elif user_input == "2":
         task_id = int(input("Enter an id to update\n"))
+        if not task_id.is_integer():
+            print("Id must be a number")
+            continue 
         new_description = input("Enter new description\n").strip()
         if new_description == "":
             print("Task description cannot be empty\n")
@@ -64,15 +67,26 @@ while True:
         connection.commit()
 
     elif user_input == "3":
-        delete_id = int(input("Enter an id to delete\n"))
-        cursor.execute(
+        delete_option = input(
+            f"1. Delete by ID\n"
+            f"2. Delete All\n"
+            "Choose an option to delete\n"
+        )
+        if delete_option == "1":
+            delete_id = int(input("Enter an id to delete\n"))
+            cursor.execute(
             "DELETE FROM tasks WHERE id = ?",
             (delete_id,)
-        )
-        if cursor.rowcount > 0:
-            print("Task deleted")
-        else:
-            print("Task not found")
+        )  
+            if cursor.rowcount > 0:
+                print("Task deleted")
+            else:
+                print("Task not found")
+
+        elif delete_option == "2":
+            cursor.execute(
+                "DELETE FROM tasks"
+            )     
         connection.commit()
 
     elif user_input == "4":
@@ -102,8 +116,11 @@ while True:
             "SELECT * FROM tasks"
         )
         results = cursor.fetchall()
-        for result in results:
-           print(result)
+        if not results:
+            print("Task Not Available")
+        else:
+            for result in results:
+                print(result)
 
     elif user_input == "6":
         status = "Done"
@@ -112,12 +129,32 @@ while True:
             (status,)
         )
         done = cursor.fetchall()
+        if 
         for each_status in done:
             print(f"{each_status}")
         
-
-
-
-    #     with open("tasks.json", "a") as file:
-    #         json.dump(task_dict, file, indent=4)
+    elif user_input == "7":
+        status = "Todo"
+        cursor.execute(
+            "SELECT * FROM tasks WHERE status = ?",
+            (status,)
+        )
+        todo = cursor.fetchall()
+        for each_status in todo:
+            print(f"{each_status}")
+    
+    elif user_input == "8":
+        status = "In-progress"
+        cursor.execute(
+            "SELECT * FROM tasks WHERE status = ?",
+            (status,)
+        )
+        in_progress = cursor.fetchall()
+        for each_status in in_progress:
+            print(f"{each_status}")
+    elif user_input == "9":
+        print("Goodbye")
+        break
+    else:
+        print("Please select an option(1 - 9)")
 
