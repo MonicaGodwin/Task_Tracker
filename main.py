@@ -31,28 +31,27 @@ while True:
 
     if user_input == "1":
         description = input("Enter task description:\n").strip()
-        if not description.isalpha():
-            print("invalid input\n")
+        if description == "":
+            print("Task description cannot be empty\n")
             continue
-        status = "In-progress"
+        status = "Todo"
         created_at = time.ctime()
         updated_at = time.ctime()
         insert = cursor.execute(
-            "INSERT INTO tasks(description, status, created_at) VALUES(?,?,?,?)",
+            "INSERT INTO tasks(description, status, created_at, updated_at) VALUES(?,?,?,?)",
             (description, status, created_at, updated_at)
         )
         if insert.rowcount > 0:
-            print("task added successfully")
+            print("Task added successfully")
         else:
             print("could not add task")
         connection.commit()
 
-    if user_input == "2":
+    elif user_input == "2":
         task_id = int(input("Enter an id to update\n"))
-        new_description = input("Enter new description\n")
-        status = "In-progress"
-        if not new_description.isalpha():
-            print("Invalid input\n")
+        new_description = input("Enter new description\n").strip()
+        if new_description == "":
+            print("Task description cannot be empty\n")
             continue
         cursor.execute(
             "UPDATE tasks SET description = ? WHERE id = ?",
@@ -64,7 +63,7 @@ while True:
             print("Task not found")
         connection.commit()
 
-    if user_input == "3":
+    elif user_input == "3":
         delete_id = int(input("Enter an id to delete\n"))
         cursor.execute(
             "DELETE FROM tasks WHERE id = ?",
@@ -76,18 +75,49 @@ while True:
             print("Task not found")
         connection.commit()
 
+    elif user_input == "4":
+        task_id = input("Enter id to mark task\n")
+        status_option = input(
+            f"1. Done\n"
+            f"2. In-progress\n"
+            f"choose status option(1 or 2)\n"
+        )
+        status = ""
+        if status_option == "1":
+            status = "Done"
+        elif status_option == "2":
+            status = "In-progress"
+        status_update = cursor.execute(
+            "UPDATE tasks SET status = ? WHERE id = ?",
+            (status,task_id)
+        )
+        if status_update.rowcount > 0:
+            print("Status updated successfully")
+        else:
+            print("Status not updated")
+        connection.commit()
+
+    elif user_input == "5":
+        cursor.execute(
+            "SELECT * FROM tasks"
+        )
+        results = cursor.fetchall()
+        for result in results:
+           print(result)
+
+    elif user_input == "6":
+        status = "Done"
+        cursor.execute(
+            "SELECT * FROM tasks WHERE status = ?",
+            (status,)
+        )
+        done = cursor.fetchall()
+        for each_status in done:
+            print(f"{each_status}")
+        
 
 
 
-    # if user_input == "1":
-    #     description = input("Enter task description:\n")
-    #     task_dict = {
-    #         "id" : "Id",
-    #         "description": description,
-    #         "status" : ["todo", "in-progress", "done"],
-    #         "createdAt" : "CreatedAt",
-    #         "updatedAt" : "UpdatedAt",
-    #     }
     #     with open("tasks.json", "a") as file:
     #         json.dump(task_dict, file, indent=4)
 
