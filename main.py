@@ -34,7 +34,7 @@ if command == "add":
         sys.exit()
         
     description = sys.argv[2]
-    next_id = len(tasks) + 1
+    next_id = len(tasks) + 1 # Calculates the next id position 
     current_time = time.ctime()
     new_tasks = {
     "id": next_id,
@@ -50,3 +50,9 @@ if command == "add":
     print(f"Task added successfully! (ID: {next_id})")
 
 
+elif command == "list":
+    if len(tasks) == "":
+        print("No task to display.")
+    else:
+        for task in tasks:
+            print(f"{task["id"]} - {task["description"]} - {task["status"]}")
