@@ -1,22 +1,16 @@
-{
-    "id": "Id",
-    "description": "reading",
-    "status": [
-        "todo",
-        "in-progress",
-        "done"
-    ],
-    "createdAt": "CreatedAt",
-    "updatedAt": "UpdatedAt"
-},
-{
-    "id": "Id",
-    "description": "cooking",
-    "status": [
-        "todo",
-        "in-progress",
-        "done"
-    ],
-    "createdAt": "CreatedAt",
-    "updatedAt": "UpdatedAt"
-}
+[
+    {
+        "id": 1,
+        "description": "Learn Python",
+        "status": "todo",
+        "created_at": "...",
+        "updated_at": "..."
+    },
+    {
+        "id": 2,
+        "description": "Learn Python concept",
+        "status": "To do",
+        "created_at": "Tue Sep 15 19:51:22 2026",
+        "updated_at": "Tue Sep 15 19:51:22 2026"
+    }
+]
