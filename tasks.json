@@ -1,1 +1,23 @@
-[]
+[
+    {
+        "id": 1,
+        "description": "work on personal project",
+        "status": "in-progress",
+        "created_at": "Wed Sep 16 09:29:52 2026",
+        "updated_at": "Wed Sep 16 10:20:06 2026"
+    },
+    {
+        "id": 2,
+        "description": "Talent nation",
+        "status": "done",
+        "created_at": "Wed Sep 16 09:31:20 2026",
+        "updated_at": "Wed Sep 16 10:43:46 2026"
+    },
+    {
+        "id": 3,
+        "description": "solve DSA questions",
+        "status": "todo",
+        "created_at": "Wed Sep 16 10:46:35 2026",
+        "updated_at": "Wed Sep 16 10:46:35 2026"
+    }
+]
