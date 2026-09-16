@@ -1,12 +1,5 @@
 [
     {
-        "id": 1,
-        "description": "Learn Python",
-        "status": "todo",
-        "created_at": "...",
-        "updated_at": "..."
-    },
-    {
         "id": 2,
         "description": "Learn Python concept",
         "status": "To do",
@@ -15,9 +8,16 @@
     },
     {
         "id": 3,
-        "description": "Answer",
-        "status": "To do",
-        "created_at": "Tue Sep 15 23:48:20 2026",
-        "updated_at": "Tue Sep 15 23:48:20 2026"
+        "description": "Leetcode",
+        "status": "Todo",
+        "created_at": "Wed Sep 16 01:52:25 2026",
+        "updated_at": "Wed Sep 16 01:52:25 2026"
+    },
+    {
+        "id": 4,
+        "description": "delete",
+        "status": "Todo",
+        "created_at": "Wed Sep 16 01:52:57 2026",
+        "updated_at": "Wed Sep 16 01:52:57 2026"
     }
 ]

@@ -30,16 +30,16 @@ command = sys.argv[1].lower()
 if command == "add":
     if len(sys.argv) < 3:
         print("Error: Please provide a task description.")
-        print('Usage: python task_tracker.py add "Your task description here"')
+        print('Usage: python3 main.py add "Task description"')
         sys.exit()
         
     description = sys.argv[2]
-    next_id = len(tasks) + 1 # Calculates the next id position 
+    next_id = len(tasks) + 1 # Calculates the next task id position 
     current_time = time.ctime()
     new_tasks = {
     "id": next_id,
     "description": description,
-    "status": "To do",  # Tasks start as "todo" by default
+    "status": "Todo",  # Tasks start as "todo" by default
     "created_at": current_time,
     "updated_at": current_time
     }
@@ -51,8 +51,25 @@ if command == "add":
 
 
 elif command == "list":
-    if len(tasks) == "":
+    if len(tasks) == 0:
         print("No task to display.")
     else:
         for task in tasks:
-            print(f"{task["id"]} - {task["description"]} - {task["status"]}")
+            print(f"{task['id']} - {task['description']} - {task['status']} - {task['created_at']} - {task['updated_at']}")
+
+elif command == "delete":
+    if len(sys.argv) < 3:
+        print(
+            f"Error: please provide a task id to delete"
+            f'Usage: python3 main.py delete "The task Id to delete"'
+        )
+        sys.exit()
+    task_id = sys.argv[2]
+    converted_id = int(task_id)
+    for task in tasks:
+        if task["id"] == converted_id:
+            tasks.remove(task)
+    with open("tasks.json", "w") as file:
+        json.dump(tasks, file, indent=4)
+
+
