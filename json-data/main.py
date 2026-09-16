@@ -2,7 +2,7 @@ import json
 import os
 import sys
 import time
-
+# Create a dictionary of task fields
 task = {
     "id" : "Id",
     "description" : "Description",
@@ -11,15 +11,17 @@ task = {
     "updated_at" : "UpdatedAt"
 }
 
-
+# Us os to check if file exists and if not, create a newfile
 if not os.path.exists("tasks.json"):
     tasks = []
     with open("tasks.json", "w") as file:
-        json.dump(tasks,file,indent=4)
+        json.dump(tasks,file,indent=4) # Write the python list into a json file.
 else:
     with open("tasks.json", "r") as data:
-        tasks = json.load(data)
-       
+        tasks = json.load(data) # read the json file as a python list
+
+# Use argument values(it stores the terminal input as a list)
+#  to recieve data from the terminal      
 if len(sys.argv) < 2:
     print("Usage: python main.py [add | list | delete]")
     sys.exit()
@@ -60,7 +62,7 @@ elif command == "list":
         print(f"Error: please provide the command argument\n")
         sys.exit()
         
-    if len(tasks) == 0:
+    if len(tasks) == 0: # checks if the list is empty
         print("No task to display.")
     else:
         for task in tasks:
@@ -75,7 +77,7 @@ elif command == "delete":
         sys.exit()
 
     task_id = sys.argv[2]
-    
+    # Use python's try and except to handle error smoothly
     try:
         converted_id = int(task_id)
     except ValueError:
@@ -89,7 +91,7 @@ elif command == "delete":
             print("Task deleted")
             break
     if found:
-        for number, task in enumerate(tasks, start=1):
+        for number, task in enumerate(tasks, start=1): # Use the enumerate module to re-order the tasks starting from 1
             task["id"] = number
         with open("tasks.json", "w") as file:
             json.dump(tasks, file, indent=4)
