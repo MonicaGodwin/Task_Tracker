@@ -1,4 +1,4 @@
-# CCLI TASK TRACKER
+# CLI TASK TRACKER
 
 A simple command-line task tracker built with Python. It allows you to create, update, delete, and manage tasks directly from your terminal.
 
