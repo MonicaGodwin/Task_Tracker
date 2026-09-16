@@ -125,17 +125,60 @@ elif command == "mark-done" or command == "mark-in-progress":
             f'Usage: python3 main.py mark-done "The task Id to mark done"'
         )
         sys.exit()
+
     status_update = False
-    status = sys.argv[1]
+    # status = sys.argv[1]
+    current_time = time.ctime
+    if command == "mark-done":
+        status = "done"
+    else:
+        status = "in-progress"
     task_id = sys.argv[2]
-    for task in task:
+    try:
+        task_id = int(task_id)
+    except ValueError:
+        print("Must be an integer")
+        sys.exit()
+
+    for task in tasks:
         if task["id"] == task_id:
             task["status"] = status
+            task["updated_at"] = current_time()
             status_update = True
-            print("Status marked as done")
+            print(f"Status marked as {status}")
             break
     if status_update:
         with open("tasks.json", "w") as file:
             json.dump(tasks, file, indent=4)
     else:
-        print("Could not mark status as 'mark-done'")
+        print(f"Could not mark status as {status}")
+
+elif command == "list":
+
+    if len(sys.argv) < 3:
+
+        print(
+            f'Usage: python3 main.py list [todo] | [in-progress] | [done] | [not-done]'
+        )
+
+        sys.exit()
+
+    list_task = False
+    task_status = sys.argv[2]
+
+    for specified_task in tasks:
+
+        if task_status == "not-done":
+
+            if specified_task["status"] in ["Todo", "In-progress"]:
+                list_task = True
+                print(specified_task)
+
+        elif specified_task["status"] == task_status:
+
+            list_task = True
+            print(specified_task)
+
+    if not list_task:
+
+        print(f"No task found with the status: {task_status}")
