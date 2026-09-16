@@ -34,6 +34,7 @@ if command == "add":
         sys.exit()
         
     description = sys.argv[2]
+    description = description.strip()
     next_id = len(tasks) + 1 # Calculates the next task id position 
     current_time = time.ctime()
     new_tasks = {
@@ -60,16 +61,33 @@ elif command == "list":
 elif command == "delete":
     if len(sys.argv) < 3:
         print(
-            f"Error: please provide a task id to delete"
+            f"Error: please provide a task id to delete\n"
             f'Usage: python3 main.py delete "The task Id to delete"'
         )
         sys.exit()
+
     task_id = sys.argv[2]
-    converted_id = int(task_id)
+    
+    try:
+        converted_id = int(task_id)
+    except ValueError:
+        print("Must be an integer")
+        sys.exit()
+    found = False
     for task in tasks:
         if task["id"] == converted_id:
             tasks.remove(task)
-    with open("tasks.json", "w") as file:
-        json.dump(tasks, file, indent=4)
+            found = True
+            print("Task deleted")
+            break
+    if found:
+        for number, task in enumerate(tasks, start=1):
+            task["id"] = number
+        with open("tasks.json", "w") as file:
+            json.dump(tasks, file, indent=4)
+    else:
+        print("Task Id not found")
+    
+    
 
 
