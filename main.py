@@ -61,7 +61,7 @@ elif command == "list":
 elif command == "delete":
     if len(sys.argv) < 3:
         print(
-            f"Error: please provide a task id to delete\n"
+            f"Error: please provide a task id number to delete\n"
             f'Usage: python3 main.py delete "The task Id to delete"'
         )
         sys.exit()
@@ -89,5 +89,53 @@ elif command == "delete":
         print("Task Id not found")
     
     
+elif command == "update":
+    if len(sys.argv) < 4:
+        print(
+            f"Error: please provide a task id number to update\n"
+            f'Usage: python3 main.py update "The task Id to update" New description'
+        )
+        sys.exit()
+    updated = False
+    task_id = sys.argv[2]
+    description = sys.argv[3]
+    current_time = time.ctime
+    try:
+        task_id = int(task_id)
+    except ValueError:
+        print("Must be an integer")
+        sys.exit()
+    for task in tasks:
+        if task["id"] == task_id:
+            task["description"] = description
+            task["updated_at"] = current_time()
+            updated = True
+            print("Task Updated")
+            break
+    if updated:
+        with open("tasks.json", "w") as file:
+            json.dump(tasks, file, indent=4)
+    else:
+        print("Task Id not found")
 
-
+elif command == "mark-done" or command == "mark-in-progress":
+    if len(sys.argv) < 3:
+        print(
+            f"Error: please provide a task id number to mark done\n"
+            f'Usage: python3 main.py mark-done "The task Id to mark done"'
+        )
+        sys.exit()
+    status_update = False
+    status = sys.argv[1]
+    task_id = sys.argv[2]
+    for task in task:
+        if task["id"] == task_id:
+            task["status"] = status
+            status_update = True
+            print("Status marked as done")
+            break
+    if status_update:
+        with open("tasks.json", "w") as file:
+            json.dump(tasks, file, indent=4)
+    else:
+        print("Could not mark status as 'mark-done'")
