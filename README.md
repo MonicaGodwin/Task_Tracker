@@ -328,8 +328,7 @@ task-tracker/
 
 # Project page url
 ```
-https://github.com/MonicaGodwin/Task_Tracker/blob/main/json-data/main.py
-
+https://roadmap.sh/projects/task-tracker
 ```
 `tasks.json` is created automatically when the application is run and does not already exist.
 
